@@ -1,0 +1,1121 @@
+bplist00�_WebMainResource�	
+_WebResourceMIMEType_WebResourceTextEncodingName^WebResourceURL_WebResourceFrameName_WebResourceData_application/jsonUUTF-8_ihttps://s3.amazonaws.com/aws-neptune-customer-samples/v2/cloudformation-templates/neptune-base-stack.jsonPOd�<html><head><style type="text/css">
+    @font-face {
+        font-family: 'RedHatDisplay';
+        src: url('safari-extension://EA310E8A-7404-4A46-8FED-656AC2136C9D/470288cf/RedHatDisplay-Medium.otf') format('opentype');
+        font-weight: normal;
+        font-style: normal;
+    }
+    @font-face {
+        font-family: 'RedHatDisplay';
+        src: url('safari-extension://EA310E8A-7404-4A46-8FED-656AC2136C9D/470288cf/RedHatDisplay-Bold.otf') format('opentype');
+        font-weight: bold;
+        font-style: normal;
+    }
+    .myki-preloader-input {
+        transform: translateX(0px) !important;
+    }
+</style></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">{
+  "Description": "Base Template to create Neptune Stack inside a VPC",
+  "Parameters": {
+    "Env": {
+      "Description": "Environment tag, e.g. prod, nonprod.",
+      "Default": "test",
+      "Type": "String",
+      "AllowedPattern": "[a-z0-9]+",
+      "MaxLength": 15
+    },
+    "DbInstanceType": {
+      "Description": "Neptune DB instance type",
+      "Type": "String",
+      "Default": "db.r5.large",
+      "AllowedValues": [
+        "db.t3.medium",
+        "db.r4.large",
+        "db.r4.xlarge",
+        "db.r4.2xlarge",
+        "db.r4.4xlarge",
+        "db.r4.8xlarge",
+        "db.r5.large",
+        "db.r5.xlarge",
+        "db.r5.2xlarge",
+        "db.r5.4xlarge",
+        "db.r5.8xlarge",
+        "db.r5.12xlarge"
+      ],
+      "ConstraintDescription": "Must be a valid Neptune instance type."
+    },
+    "DBReplicaIdentifierSuffix": {
+      "Description": "OPTIONAL: The ID for the Neptune Replica to use. Empty means no read replica.",
+      "Type": "String",
+      "Default": ""
+    },
+    "DBClusterPort": {
+      "Type": "String",
+      "Default": "8182",
+      "Description": "Enter the port of your Neptune cluster"
+    },
+    "NeptuneQueryTimeout": {
+      "Type": "Number",
+      "Default": 20000,
+      "Description": "Neptune Query Time out (in milliseconds)"
+    },
+    "NeptuneEnableAuditLog": {
+      "Type": "Number",
+      "Default": 0,
+      "AllowedValues": [
+        0,
+        1
+      ],
+      "Description": "Enable Audit Log. 0 means disable and 1 means enable."
+    },
+    "IamAuthEnabled": {
+      "Type": "String",
+      "Default": "false",
+      "AllowedValues": [
+        "true",
+        "false"
+      ],
+      "Description": "Enable IAM Auth for Neptune."
+    }
+  },
+  "Conditions": {
+    "CreateDBReplicaInstance": {
+      "Fn::Not": [
+        {
+          "Fn::Equals": [
+            {
+              "Ref": "DBReplicaIdentifierSuffix"
+            },
+            ""
+          ]
+        }
+      ]
+    },
+    "AZ3NotPresent": {"Fn::Or": [{"Fn::Equals": [{"Ref": "AWS::Region"}, "ca-central-1"]}, {"Fn::Equals": [{"Ref": "AWS::Region"}, "us-west-1"]}]},
+    "AZ3Present": { "Fn::Not": [{ "Condition": "AZ3NotPresent" }] }
+  },
+  "Resources": {
+    "NeptuneDBSubnetGroup": {
+      "Type": "AWS::Neptune::DBSubnetGroup",
+      "Properties": {
+        "DBSubnetGroupDescription": "Neptune DB subnet group",
+        "SubnetIds": {
+          "Fn::If": [
+            "AZ3NotPresent",
+            [{"Ref": "Subnet1"}, {"Ref": "Subnet2"}],
+            [{"Ref": "Subnet1"}, {"Ref": "Subnet2"}, {"Ref": "Subnet3"}]
+          ]
+          },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": {
+              "Fn::Sub": "Neptune-${Env}"
+            }
+          },
+          {
+            "Key": "StackId",
+            "Value": {
+              "Fn::Sub": "${AWS::StackId}"
+            }
+          },
+          {
+            "Key": "Stack",
+            "Value": {
+              "Fn::Sub": "${AWS::Region}-${AWS::StackName}"
+            }
+          },
+          {
+            "Key": "Application",
+            "Value": "NeptuneCloudformation"
+          }
+        ]
+      }
+    },
+    "VPCS3Endpoint": {
+      "Type": "AWS::EC2::VPCEndpoint",
+      "DependsOn": [
+        "VPC"
+      ],
+      "Properties": {
+        "RouteTableIds": [
+          {
+            "Ref": "PublicRouteTable"
+          },
+          {
+            "Ref": "PrivateRouteTable"
+          }
+        ],
+        "ServiceName": {
+          "Fn::Join": [
+            "",
+            [
+              "com.amazonaws.",
+              {
+                "Ref": "AWS::Region"
+              },
+              ".s3"
+            ]
+          ]
+        },
+        "VpcId": {
+          "Ref": "VPC"
+        },
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": "*",
+              "Action": [
+                "s3:*"
+              ],
+              "Resource": [
+                "*"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "NeptuneSG": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "VpcId": {
+          "Ref": "VPC"
+        },
+        "GroupDescription": "Allow Access",
+        "SecurityGroupIngress": [
+          {
+            "FromPort": "22",
+            "ToPort": "22",
+            "IpProtocol": "tcp",
+            "CidrIp": "0.0.0.0/0",
+            "Description": "ssh from anywhere"
+          },
+          {
+            "FromPort": {
+                "Ref": "DBClusterPort"
+            },
+            "ToPort": {
+              "Ref": "DBClusterPort"
+            },
+            "IpProtocol": "tcp",
+            "CidrIp": "0.0.0.0/0",
+            "Description": "http access"
+          }
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": {
+              "Fn::Sub": "Neptune-${Env}"
+            }
+          },
+          {
+            "Key": "StackId",
+            "Value": {
+              "Fn::Sub": "${AWS::StackId}"
+            }
+          },
+          {
+            "Key": "Stack",
+            "Value": {
+              "Fn::Sub": "${AWS::Region}-${AWS::StackName}"
+            }
+          },
+          {
+            "Key": "Application",
+            "Value": "NeptuneCloudformation"
+          }
+        ]
+      }
+    },
+    "NeptuneEC2InstanceProfile": {
+      "Type": "AWS::IAM::InstanceProfile",
+      "Properties": {
+        "Path": "/",
+        "Roles": [
+          {
+            "Ref": "NeptuneEC2ClientRole"
+          }
+        ]
+      },
+      "DependsOn": [
+        "NeptuneEC2ClientRole"
+      ]
+    },
+    "NeptuneEC2ClientRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": [
+                  "ec2.amazonaws.com"
+                ]
+              },
+              "Action": [
+                "sts:AssumeRole"
+              ]
+            }
+          ]
+        },
+        "Path": "/"
+      }
+    },
+    "NeptuneIamAuthUser" : {
+      "Type" : "AWS::IAM::User",
+      "Properties" : {
+        "Path" : "/"
+        }
+    },
+    "NeptuneAccessPolicy": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyName": "NeptuneAccessPolicy",
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": [
+                "rds:*",
+                "iam:GetAccountSummary",
+                "iam:ListAccountAliases",
+                "iam:PassRole"
+              ],
+              "Resource": "*"
+            }
+          ]
+        },
+        "Roles": [
+          {
+            "Ref": "NeptuneEC2ClientRole"
+          }
+        ]
+      }
+    },
+    "NeptuneIAMAuthPolicy": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyName": "NeptuneIAMAuthPolicy",
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": [
+                "neptune-db:*"
+              ],
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    {
+                        "Fn::Sub": "arn:${AWS::Partition}:neptune-db:"
+                    },
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":",
+                    {
+                      "Fn::GetAtt": [
+                        "NeptuneDBCluster",
+                        "ClusterResourceId"
+                      ]
+                    },
+                    "/*"
+                  ]
+                ]
+              }
+            }
+          ]
+        },
+        "Roles": [
+          {
+            "Ref": "NeptuneEC2ClientRole"
+          }
+        ],
+        "Users": [
+          {
+            "Ref": "NeptuneIamAuthUser"
+          }
+        ]
+      }
+    },
+    "NeptuneLoadFromS3Role": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": [
+                  "rds.amazonaws.com"
+                ]
+              },
+              "Action": [
+                "sts:AssumeRole"
+              ]
+            }
+          ]
+        },
+        "Path": "/"
+      }
+    },
+    "NeptuneLoadFromS3Policy": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyName": "NeptuneLoadFromS3Policy",
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": [
+                "s3:Get*",
+                "s3:List*"
+              ],
+              "Resource": "*"
+            }
+          ]
+        },
+        "Roles": [
+          {
+            "Ref": "NeptuneLoadFromS3Role"
+          }
+        ]
+      }
+    },
+    "NeptuneDBClusterParameterGroup": {
+      "Type": "AWS::Neptune::DBClusterParameterGroup",
+      "Properties": {
+        "Family": "neptune1",
+        "Description": "test-cfn-neptune-db-cluster-parameter-group-description",
+        "Parameters": {
+          "neptune_enable_audit_log": {
+            "Ref": "NeptuneEnableAuditLog"
+          }
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": {
+              "Fn::Sub": "Neptune-${Env}"
+            }
+          },
+          {
+            "Key": "StackId",
+            "Value": {
+              "Fn::Sub": "${AWS::StackName}"
+            }
+          },
+          {
+            "Key": "Stack",
+            "Value": {
+              "Fn::Sub": "${AWS::Region}-${AWS::StackId}"
+            }
+          },
+          {
+            "Key": "Application",
+            "Value": "NeptuneCloudformation"
+          }
+        ]
+      }
+    },
+    "NeptuneDBParameterGroup": {
+      "Type": "AWS::Neptune::DBParameterGroup",
+      "Properties": {
+        "Family": "neptune1",
+        "Description": "test-cfn-neptune-db-parameter-group-description",
+        "Parameters": {
+          "neptune_query_timeout": {
+            "Ref": "NeptuneQueryTimeout"
+          }
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": {
+              "Fn::Sub": "Neptune-${Env}"
+            }
+          },
+          {
+            "Key": "StackId",
+            "Value": {
+              "Fn::Sub": "${AWS::StackId}"
+            }
+          },
+          {
+            "Key": "Stack",
+            "Value": {
+              "Fn::Sub": "${AWS::Region}-${AWS::StackName}"
+            }
+          },
+          {
+            "Key": "Application",
+            "Value": "NeptuneCloudformation"
+          }
+        ]
+      }
+    },
+    "NeptuneDBCluster": {
+      "Type": "AWS::Neptune::DBCluster",
+      "Properties": {
+        "DBSubnetGroupName": {
+          "Ref": "NeptuneDBSubnetGroup"
+        },
+        "VpcSecurityGroupIds": [
+          {
+            "Fn::GetAtt": [
+              "VPC",
+              "DefaultSecurityGroup"
+            ]
+          },
+          {
+            "Ref": "NeptuneSG"
+          }
+        ],
+        "DBClusterParameterGroupName": {
+          "Ref": "NeptuneDBClusterParameterGroup"
+        },
+        "Port": {
+          "Ref": "DBClusterPort"
+        },
+        "IamAuthEnabled": {
+          "Ref": "IamAuthEnabled"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": {
+              "Fn::Sub": "Neptune-${Env}"
+            }
+          },
+          {
+            "Key": "StackId",
+            "Value": {
+              "Fn::Sub": "${AWS::StackId}"
+            }
+          },
+          {
+            "Key": "Stack",
+            "Value": {
+              "Fn::Sub": "${AWS::Region}-${AWS::StackName}"
+            }
+          },
+          {
+            "Key": "Application",
+            "Value": "NeptuneCloudformation"
+          }
+        ]
+      },
+      "DependsOn": [
+        "NeptuneDBSubnetGroup",
+        "NeptuneDBClusterParameterGroup"
+      ]
+    },
+    "NeptuneDBInstance": {
+      "Type": "AWS::Neptune::DBInstance",
+      "Properties": {
+        "DBClusterIdentifier": {
+          "Ref": "NeptuneDBCluster"
+        },
+        "DBInstanceClass": {
+          "Ref": "DbInstanceType"
+        },
+        "DBParameterGroupName": {
+          "Ref": "NeptuneDBParameterGroup"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": {
+              "Fn::Sub": "Neptune-${Env}"
+            }
+          },
+          {
+            "Key": "StackId",
+            "Value": {
+              "Fn::Sub": "${AWS::StackId}"
+            }
+          },
+          {
+            "Key": "Stack",
+            "Value": {
+              "Fn::Sub": "${AWS::Region}-${AWS::StackName}"
+            }
+          },
+          {
+            "Key": "Application",
+            "Value": "NeptuneCloudformation"
+          }
+        ]
+      },
+      "DependsOn": [
+        "NeptuneDBCluster",
+        "NeptuneDBParameterGroup"
+      ]
+    },
+    "NeptuneDBReplicaInstance": {
+      "Type": "AWS::Neptune::DBInstance",
+      "Condition": "CreateDBReplicaInstance",
+      "Properties": {
+        "DBInstanceIdentifier": {
+          "Fn::Join": [
+            "",
+            [
+              {
+                "Ref": "DBReplicaIdentifierSuffix"
+              },
+              "-",
+              {
+                "Fn::Sub": "${AWS::StackName}"
+              }
+            ]
+          ]
+        },
+        "DBClusterIdentifier": {
+          "Ref": "NeptuneDBCluster"
+        },
+        "DBInstanceClass": {
+          "Ref": "DbInstanceType"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": {
+              "Fn::Sub": "Neptune-${Env}"
+            }
+          },
+          {
+            "Key": "StackId",
+            "Value": {
+              "Fn::Sub": "${AWS::StackId}"
+            }
+          },
+          {
+            "Key": "Stack",
+            "Value": {
+              "Fn::Sub": "${AWS::Region}-${AWS::StackName}"
+            }
+          },
+          {
+            "Key": "Application",
+            "Value": "NeptuneCloudformation"
+          }
+        ]
+      },
+      "DependsOn": [
+        "NeptuneDBCluster",
+        "NeptuneDBInstance"
+      ]
+    },
+    "ElasticIP1": {
+      "Type": "AWS::EC2::EIP",
+      "Properties": {
+        "Domain": "VPC"
+      }
+    },
+    "VPC": {
+      "Type": "AWS::EC2::VPC",
+      "Properties": {
+        "CidrBlock": "172.30.0.0/16",
+        "EnableDnsSupport": "true",
+        "EnableDnsHostnames": "true",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": {
+              "Fn::Sub": "Neptune-${Env}"
+            }
+          },
+          {
+            "Key": "StackId",
+            "Value": {
+              "Fn::Sub": "${AWS::StackId}"
+            }
+          },
+          {
+            "Key": "Stack",
+            "Value": {
+              "Fn::Sub": "${AWS::Region}-${AWS::StackName}"
+            }
+          },
+          {
+            "Key": "Application",
+            "Value": "NeptuneCloudformation"
+          }
+        ]
+      }
+    },
+    "PublicRouteTable": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "VPC"
+        }
+      },
+      "DependsOn": [
+        "VPC"
+      ]
+    },
+    "PrivateRouteTable": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "VPC"
+        }
+      },
+      "DependsOn": [
+        "VPC"
+      ]
+    },
+    "IGWAtt": {
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+      "Properties": {
+        "InternetGatewayId": {
+          "Ref": "IGW"
+        },
+        "VpcId": {
+          "Ref": "VPC"
+        }
+      },
+      "DependsOn": [
+        "VPC",
+        "IGW"
+      ]
+    },
+    "IGW": {
+      "Type": "AWS::EC2::InternetGateway",
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": {
+              "Fn::Sub": "Neptune-${Env}"
+            }
+          },
+          {
+            "Key": "StackId",
+            "Value": {
+              "Fn::Sub": "${AWS::StackId}"
+            }
+          },
+          {
+            "Key": "Stack",
+            "Value": {
+              "Fn::Sub": "${AWS::Region}-${AWS::StackName}"
+            }
+          },
+          {
+            "Key": "Application",
+            "Value": "NeptuneCloudformation"
+          }
+        ]
+      }
+    },
+    "NATGW": {
+      "Type": "AWS::EC2::NatGateway",
+      "Properties": {
+        "AllocationId": {
+          "Fn::GetAtt": ["ElasticIP1", "AllocationId"]
+        },
+        "SubnetId": {
+          "Ref": "Subnet4"
+        }
+      }
+    },
+    "PublicRoute": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "IGW"
+        },
+        "RouteTableId": {
+          "Ref": "PublicRouteTable"
+        }
+      },
+      "DependsOn": [
+        "IGWAtt"
+      ]
+    },
+    "PrivateRoute": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "NatGatewayId": {
+          "Ref": "NATGW"
+        },
+        "RouteTableId": {
+          "Ref": "PrivateRouteTable"
+        }
+      },
+      "DependsOn": [
+        "IGWAtt"
+      ]
+    },
+    "Subnet1": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "172.30.1.0/24",
+        "VpcId": {
+          "Ref": "VPC"
+        },
+        "AvailabilityZone": {
+          "Fn::Select": [
+            0,
+            {
+              "Fn::GetAZs": ""
+            }
+          ]
+        }
+      }
+    },
+    "Subnet2": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "172.30.2.0/24",
+        "VpcId": {
+          "Ref": "VPC"
+        },
+        "AvailabilityZone": {
+          "Fn::Select": [
+            1,
+            {
+              "Fn::GetAZs": ""
+            }
+          ]
+        }
+      }
+    },
+    "Subnet3": {
+      "Type": "AWS::EC2::Subnet",
+      "Condition": "AZ3Present",
+      "Properties": {
+        "CidrBlock": "172.30.3.0/24",
+        "VpcId": {
+          "Ref": "VPC"
+        },
+        "AvailabilityZone": {
+          "Fn::Select": [
+            2,
+            {
+              "Fn::GetAZs": ""
+            }
+          ]
+        }
+      }
+    },
+    "Subnet4": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "172.30.4.0/24",
+        "MapPublicIpOnLaunch": "true",
+        "VpcId": {
+          "Ref": "VPC"
+        },
+        "AvailabilityZone": {
+          "Fn::Select": [
+            0,
+            {
+              "Fn::GetAZs": ""
+            }
+          ]
+        }
+      }
+    },
+    "SubnetRTAssociation1": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "DependsOn": [
+        "Subnet1",
+        "PrivateRouteTable"
+      ],
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "PrivateRouteTable"
+        },
+        "SubnetId": {
+          "Ref": "Subnet1"
+        }
+      }
+    },
+    "SubnetRTAssociation2": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "DependsOn": [
+        "Subnet2",
+        "PrivateRouteTable"
+      ],
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "PrivateRouteTable"
+        },
+        "SubnetId": {
+          "Ref": "Subnet2"
+        }
+      }
+    },
+    "SubnetRTAssociation3": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Condition": "AZ3Present",
+      "DependsOn": [
+        "Subnet3",
+        "PrivateRouteTable"
+      ],
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "PrivateRouteTable"
+        },
+        "SubnetId": {
+          "Ref": "Subnet3"
+        }
+      }
+    },
+    "SubnetRTAssociation4": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "DependsOn": [
+        "Subnet4",
+        "PublicRouteTable"
+      ],
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "PublicRouteTable"
+        },
+        "SubnetId": {
+          "Ref": "Subnet4"
+        }
+      }
+    }
+  },
+  "Outputs": {
+    "DBClusterId": {
+      "Description": "Neptune Cluster Identifier",
+      "Value": {
+        "Ref": "NeptuneDBCluster"
+      }
+    },
+    "DBSubnetGroupId": {
+      "Description": "Neptune DBSubnetGroup Identifier",
+      "Value": {
+        "Ref": "NeptuneDBSubnetGroup"
+      }
+    },
+    "DBClusterResourceId": {
+      "Description": "Neptune Cluster Resource Identifier",
+      "Value": {
+        "Fn::GetAtt": [
+          "NeptuneDBCluster",
+          "ClusterResourceId"
+        ]
+      }
+    },
+    "DBClusterEndpoint": {
+      "Description": "Master Endpoint for Neptune Cluster",
+      "Value": {
+        "Fn::GetAtt": [
+          "NeptuneDBCluster",
+          "Endpoint"
+        ]
+      }
+    },
+    "DBInstanceEndpoint": {
+      "Description": "Master Instance Endpoint",
+      "Value": {
+        "Fn::GetAtt": [
+          "NeptuneDBInstance",
+          "Endpoint"
+        ]
+      }
+    },
+    "DBReplicaInstanceEndpoint": {
+      "Description": "ReadReplica Instance Endpoint",
+      "Condition": "CreateDBReplicaInstance",
+      "Value": {
+        "Fn::GetAtt": [
+          "NeptuneDBReplicaInstance",
+          "Endpoint"
+        ]
+      }
+    },
+    "SparqlEndpoint": {
+      "Description": "Sparql Endpoint for Neptune",
+      "Value": {
+        "Fn::Join": [
+          "",
+          [
+            "http://",
+            {
+              "Fn::GetAtt": [
+                "NeptuneDBCluster",
+                "Endpoint"
+              ]
+            },
+            ":",
+            {
+              "Fn::GetAtt": [
+                "NeptuneDBCluster",
+                "Port"
+              ]
+            },
+            "/sparql"
+          ]
+        ]
+      }
+    },
+    "GremlinEndpoint": {
+      "Description": "Gremlin Endpoint for Neptune",
+      "Value": {
+        "Fn::Join": [
+          "",
+          [
+            "http://",
+            {
+              "Fn::GetAtt": [
+                "NeptuneDBCluster",
+                "Endpoint"
+              ]
+            },
+            ":",
+            {
+              "Fn::GetAtt": [
+                "NeptuneDBCluster",
+                "Port"
+              ]
+            },
+            "/gremlin"
+          ]
+        ]
+      }
+    },
+    "LoaderEndpoint": {
+      "Description": "Loader Endpoint for Neptune",
+      "Value": {
+        "Fn::Join": [
+          "",
+          [
+            "http://",
+            {
+              "Fn::GetAtt": [
+                "NeptuneDBCluster",
+                "Endpoint"
+              ]
+            },
+            ":",
+            {
+              "Fn::GetAtt": [
+                "NeptuneDBCluster",
+                "Port"
+              ]
+            },
+            "/loader"
+          ]
+        ]
+      }
+    },
+    "DBClusterReadEndpoint": {
+      "Description": "DB cluster Read Endpoint",
+      "Value": {
+        "Fn::GetAtt": [
+          "NeptuneDBCluster",
+          "ReadEndpoint"
+        ]
+      }
+    },
+    "DBClusterPort": {
+      "Description": "Port for the Neptune Cluster",
+      "Value": {
+        "Fn::GetAtt": [
+          "NeptuneDBCluster",
+          "Port"
+        ]
+      }
+    },
+    "NeptuneLoadFromS3IAMRoleArn": {
+      "Description": "IAM Role for loading data in Neptune",
+      "Value": {
+        "Fn::GetAtt": [
+          "NeptuneLoadFromS3Role",
+          "Arn"
+        ]
+      }
+    },
+    "NeptuneIamAuthUser": {
+      "Description": "IAM User for accessing Neptune via IAM Auth",
+      "Value": {
+        "Ref": "NeptuneIamAuthUser"
+      }
+    },
+    "PrivateSubnet1": {
+      "Description": "Subnet Id",
+      "Value": {
+        "Ref": "Subnet1"
+      }
+    },
+    "PrivateSubnet2": {
+      "Description": "Subnet Id",
+      "Value": {
+        "Ref": "Subnet2"
+      }
+    },
+    "PrivateSubnet3": {
+      "Condition" : "AZ3Present",
+      "Description": "Subnet Id",
+      "Value": {
+        "Ref": "Subnet3"
+      }
+    },
+    "PublicSubnet1": {
+      "Description": "Subnet Id",
+      "Value": {
+        "Ref": "Subnet4"
+      }
+    },
+    "NeptuneEC2InstanceProfile": {
+      "Description": "Neptune EC2 Instance Profile",
+      "Value": {
+        "Ref": "NeptuneEC2InstanceProfile"
+      }
+    },
+    "VPC": {
+      "Description": "VPC",
+      "Value": {
+        "Ref": "VPC"
+      }
+    },
+    "NeptuneSG": {
+      "Description": "Neptune Security Group",
+      "Value": {
+        "Ref": "NeptuneSG"
+      }
+    },
+    "InternetGateway": {
+      "Description": "Neptune InternetGateway ",
+      "Value": {
+        "Ref": "IGW"
+      }
+    },
+    "NatGateway": {
+      "Description": "Neptune NatGateway ",
+      "Value": {
+        "Ref": "NATGW"
+      }
+    },
+    "ElasticIP": {
+      "Description": "Neptune Elastic IP Address for NatGateway",
+      "Value": {
+        "Ref": "ElasticIP1"
+      }
+    }
+  }
+}
+</pre></body></html>    ( > \ k � � � �             
+              e�
