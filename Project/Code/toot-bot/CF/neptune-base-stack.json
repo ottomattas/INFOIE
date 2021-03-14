@@ -1,21 +1,4 @@
-bplist00�_WebMainResource�	
-_WebResourceMIMEType_WebResourceTextEncodingName^WebResourceURL_WebResourceFrameName_WebResourceData_application/jsonUUTF-8_ihttps://s3.amazonaws.com/aws-neptune-customer-samples/v2/cloudformation-templates/neptune-base-stack.jsonPOd�<html><head><style type="text/css">
-    @font-face {
-        font-family: 'RedHatDisplay';
-        src: url('safari-extension://EA310E8A-7404-4A46-8FED-656AC2136C9D/470288cf/RedHatDisplay-Medium.otf') format('opentype');
-        font-weight: normal;
-        font-style: normal;
-    }
-    @font-face {
-        font-family: 'RedHatDisplay';
-        src: url('safari-extension://EA310E8A-7404-4A46-8FED-656AC2136C9D/470288cf/RedHatDisplay-Bold.otf') format('opentype');
-        font-weight: bold;
-        font-style: normal;
-    }
-    .myki-preloader-input {
-        transform: translateX(0px) !important;
-    }
-</style></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">{
+{
   "Description": "Base Template to create Neptune Stack inside a VPC",
   "Parameters": {
     "Env": {
@@ -1117,5 +1100,3 @@ bplist00�_WebMainResource�
     }
   }
 }
-</pre></body></html>    ( > \ k � � � �             
-              e�
