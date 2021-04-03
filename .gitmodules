@@ -1,0 +1,3 @@
+[submodule "Project/Code/neo4j-movies-template"]
+	path = Project/Code/neo4j-movies-template
+	url = https://github.com/neo4j-examples/neo4j-movies-template.git
