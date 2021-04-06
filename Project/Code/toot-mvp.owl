@@ -28922,6 +28922,15 @@ Related actions:&lt;br/&gt;&lt;br/&gt;
     
 
 
+    <!-- https://toot.ai/mvp/Server -->
+
+    <owl:Class rdf:about="https://toot.ai/mvp/Server">
+        <rdfs:subClassOf rdf:resource="https://toot.ai/mvp/Intangible"/>
+        <rdfs:comment xml:lang="en">Server that provides game interaction in a multiplayer game.</rdfs:comment>
+    </owl:Class>
+    
+
+
     <!-- https://toot.ai/mvp/Service -->
 
     <owl:Class rdf:about="https://toot.ai/mvp/Service">
@@ -30668,13 +30677,13 @@ Related actions:&lt;br/&gt;&lt;br/&gt;
         <rdfs:comment xml:lang="en">Used to indicate whether a product is EnergyStar certified.</rdfs:comment>
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/EventStatusType">
-        <rdfs:label xml:lang="en">EventStatusType</rdfs:label>
         <rdfs:comment xml:lang="en">EventStatusType is an enumeration type whose instances represent several states that an Event may be in.</rdfs:comment>
+        <rdfs:label xml:lang="en">EventStatusType</rdfs:label>
         <rdfs:isDefinedBy rdf:resource="https://toot.ai/mvp/EventStatusType"/>
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/GameServerStatus">
-        <rdfs:isDefinedBy rdf:resource="https://toot.ai/mvp/GameServerStatus"/>
         <rdfs:comment xml:lang="en">Status of a game server.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="https://toot.ai/mvp/GameServerStatus"/>
         <rdfs:label xml:lang="en">GameServerStatus</rdfs:label>
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/LegalForceStatus">
@@ -30709,8 +30718,8 @@ Related actions:&lt;br/&gt;&lt;br/&gt;
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/UKNonprofitType">
         <rdfs:isDefinedBy rdf:resource="https://pending.schema.org/UKNonprofitType"/>
-        <rdfs:comment xml:lang="en">UKNonprofitType: Non-profit organization type originating from the United Kingdom.</rdfs:comment>
         <rdfs:label xml:lang="en">UKNonprofitType</rdfs:label>
+        <rdfs:comment xml:lang="en">UKNonprofitType: Non-profit organization type originating from the United Kingdom.</rdfs:comment>
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/USNonprofitType">
         <rdfs:isDefinedBy rdf:resource="https://pending.schema.org/USNonprofitType"/>
@@ -30728,8 +30737,8 @@ Related actions:&lt;br/&gt;&lt;br/&gt;
         <rdfs:isDefinedBy rdf:resource="https://pending.schema.org/WearableSizeSystemEnumeration"/>
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/abridged">
-        <rdfs:label xml:lang="en">abridged</rdfs:label>
         <rdfs:isDefinedBy rdf:resource="https://bib.schema.org/abridged"/>
+        <rdfs:label xml:lang="en">abridged</rdfs:label>
         <rdfs:comment xml:lang="en">Indicates whether the book is an abridged edition.</rdfs:comment>
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/actionApplication">
@@ -30773,8 +30782,8 @@ Related actions:&lt;br/&gt;&lt;br/&gt;
         <rdfs:comment xml:lang="en">The quantity of the goods included in the offer.</rdfs:comment>
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/answerCount">
-        <rdfs:comment xml:lang="en">The number of answers this question has received.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource="https://toot.ai/mvp/answerCount"/>
+        <rdfs:comment xml:lang="en">The number of answers this question has received.</rdfs:comment>
         <rdfs:label xml:lang="en">answerCount</rdfs:label>
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/application">
@@ -30798,8 +30807,8 @@ Related actions:&lt;br/&gt;&lt;br/&gt;
         <rdfs:comment xml:lang="en">The area within which users can expect to reach the broadcast service.</rdfs:comment>
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/areaServed">
-        <rdfs:comment xml:lang="en">The geographic area where a service or offered item is provided.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource="https://toot.ai/mvp/areaServed"/>
+        <rdfs:comment xml:lang="en">The geographic area where a service or offered item is provided.</rdfs:comment>
         <rdfs:label xml:lang="en">areaServed</rdfs:label>
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/arrivalTime">
@@ -30864,8 +30873,8 @@ Related actions:&lt;br/&gt;&lt;br/&gt;
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/availableThrough">
         <rdfs:comment xml:lang="en">After this date, the item will no longer be available for pickup.</rdfs:comment>
-        <rdfs:label xml:lang="en">availableThrough</rdfs:label>
         <rdfs:isDefinedBy rdf:resource="https://toot.ai/mvp/availableThrough"/>
+        <rdfs:label xml:lang="en">availableThrough</rdfs:label>
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/award">
         <rdfs:isDefinedBy rdf:resource="https://toot.ai/mvp/award"/>
@@ -30878,8 +30887,8 @@ Related actions:&lt;br/&gt;&lt;br/&gt;
         <rdfs:comment xml:lang="en">Awards won by or for this item.</rdfs:comment>
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/benefits">
-        <rdfs:comment xml:lang="en">Description of benefits associated with the job.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource="https://toot.ai/mvp/benefits"/>
+        <rdfs:comment xml:lang="en">Description of benefits associated with the job.</rdfs:comment>
         <rdfs:label xml:lang="en">benefits</rdfs:label>
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/billingIncrement">
@@ -30908,8 +30917,8 @@ Related actions:&lt;br/&gt;&lt;br/&gt;
         <rdfs:comment xml:lang="en">The postings that are part of this blog.</rdfs:comment>
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/bookingAgent">
-        <rdfs:isDefinedBy rdf:resource="https://toot.ai/mvp/bookingAgent"/>
         <rdfs:label xml:lang="en">bookingAgent</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="https://toot.ai/mvp/bookingAgent"/>
         <rdfs:comment xml:lang="en">&apos;bookingAgent&apos; is an out-dated term indicating a &apos;broker&apos; that serves as a booking agent.</rdfs:comment>
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/bookingTime">
@@ -30923,8 +30932,8 @@ Related actions:&lt;br/&gt;&lt;br/&gt;
         <rdfs:comment xml:lang="en">The branches that delineate from the nerve bundle. Not to be confused with &lt;a class=&quot;localLink&quot; href=&quot;https://schema.org/branchOf&quot;&gt;branchOf&lt;/a&gt;.</rdfs:comment>
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/branchOf">
-        <rdfs:isDefinedBy rdf:resource="https://toot.ai/mvp/branchOf"/>
         <rdfs:label xml:lang="en">branchOf</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="https://toot.ai/mvp/branchOf"/>
         <rdfs:comment xml:lang="en">The larger organization that this local business is a branch of, if any. Not to be confused with (anatomical)&lt;a class=&quot;localLink&quot; href=&quot;https://schema.org/branch&quot;&gt;branch&lt;/a&gt;.</rdfs:comment>
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/broker">
@@ -30948,8 +30957,8 @@ Related actions:&lt;br/&gt;&lt;br/&gt;
         <rdfs:isDefinedBy rdf:resource="https://pending.schema.org/byMonthWeek"/>
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/carrier">
-        <rdfs:comment xml:lang="en">&apos;carrier&apos; is an out-dated term indicating the &apos;provider&apos; for parcel delivery and flights.</rdfs:comment>
         <rdfs:label xml:lang="en">carrier</rdfs:label>
+        <rdfs:comment xml:lang="en">&apos;carrier&apos; is an out-dated term indicating the &apos;provider&apos; for parcel delivery and flights.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource="https://toot.ai/mvp/carrier"/>
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/cashBack">
@@ -30973,14 +30982,14 @@ Related actions:&lt;br/&gt;&lt;br/&gt;
         <rdfs:isDefinedBy rdf:resource="https://toot.ai/mvp/checkoutTime"/>
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/childMaxAge">
-        <rdfs:isDefinedBy rdf:resource="https://toot.ai/mvp/childMaxAge"/>
         <rdfs:label xml:lang="en">childMaxAge</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="https://toot.ai/mvp/childMaxAge"/>
         <rdfs:comment xml:lang="en">Maximal age of the child.</rdfs:comment>
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/childMinAge">
         <rdfs:comment xml:lang="en">Minimal age of the child.</rdfs:comment>
-        <rdfs:isDefinedBy rdf:resource="https://toot.ai/mvp/childMinAge"/>
         <rdfs:label xml:lang="en">childMinAge</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="https://toot.ai/mvp/childMinAge"/>
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/clincalPharmacology">
         <rdfs:isDefinedBy rdf:resource="https://health-lifesci.schema.org/clincalPharmacology"/>
@@ -31008,8 +31017,8 @@ Related actions:&lt;br/&gt;&lt;br/&gt;
         <rdfs:label xml:lang="en">colleague</rdfs:label>
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/colleagues">
-        <rdfs:comment xml:lang="en">A colleague of the person.</rdfs:comment>
         <rdfs:label xml:lang="en">colleagues</rdfs:label>
+        <rdfs:comment xml:lang="en">A colleague of the person.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource="https://toot.ai/mvp/colleagues"/>
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/collection">
@@ -31064,8 +31073,8 @@ Related actions:&lt;br/&gt;&lt;br/&gt;
         <rdfs:isDefinedBy rdf:resource="https://toot.ai/mvp/containedInPlace"/>
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/containsSeason">
-        <rdfs:comment xml:lang="en">A season that is part of the media series.</rdfs:comment>
         <rdfs:label xml:lang="en">containsSeason</rdfs:label>
+        <rdfs:comment xml:lang="en">A season that is part of the media series.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource="https://toot.ai/mvp/containsSeason"/>
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/contentReferenceTime">
@@ -31130,8 +31139,8 @@ Related actions:&lt;br/&gt;&lt;br/&gt;
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/cvdNumC19OFMechVentPats">
         <rdfs:label xml:lang="en">cvdNumC19OFMechVentPats</rdfs:label>
-        <rdfs:comment xml:lang="en">numc19ofmechventpats - ED/OVERFLOW and VENTILATED: Patients with suspected or confirmed COVID-19 who are in the ED or any overflow location awaiting an inpatient bed and on a mechanical ventilator.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource="https://pending.schema.org/cvdNumC19OFMechVentPats"/>
+        <rdfs:comment xml:lang="en">numc19ofmechventpats - ED/OVERFLOW and VENTILATED: Patients with suspected or confirmed COVID-19 who are in the ED or any overflow location awaiting an inpatient bed and on a mechanical ventilator.</rdfs:comment>
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/cvdNumC19OverflowPats">
         <rdfs:label xml:lang="en">cvdNumC19OverflowPats</rdfs:label>
@@ -31165,8 +31174,8 @@ Related actions:&lt;br/&gt;&lt;br/&gt;
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/datasetTimeInterval">
         <rdfs:label xml:lang="en">datasetTimeInterval</rdfs:label>
-        <rdfs:isDefinedBy rdf:resource="https://toot.ai/mvp/datasetTimeInterval"/>
         <rdfs:comment xml:lang="en">The range of temporal applicability of a dataset, e.g. for a 2011 census dataset, the year 2011 (in ISO 8601 time interval format).</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="https://toot.ai/mvp/datasetTimeInterval"/>
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/dateCreated">
         <rdfs:isDefinedBy rdf:resource="https://toot.ai/mvp/dateCreated"/>
@@ -31299,8 +31308,8 @@ Related actions:&lt;br/&gt;&lt;br/&gt;
 In cases where a &lt;a class=&quot;localLink&quot; href=&quot;https://schema.org/CreativeWork&quot;&gt;CreativeWork&lt;/a&gt; has several media type representations, &lt;a class=&quot;localLink&quot; href=&quot;https://schema.org/encoding&quot;&gt;encoding&lt;/a&gt; can be used to indicate each &lt;a class=&quot;localLink&quot; href=&quot;https://schema.org/MediaObject&quot;&gt;MediaObject&lt;/a&gt; alongside particular &lt;a class=&quot;localLink&quot; href=&quot;https://schema.org/encodingFormat&quot;&gt;encodingFormat&lt;/a&gt; information.&lt;br/&gt;&lt;br/&gt;
 
 Unregistered or niche encoding and file formats can be indicated instead via the most appropriate URL, e.g. defining Web page or a Wikipedia/Wikidata entry.</rdfs:comment>
-        <rdfs:label xml:lang="en">encodingFormat</rdfs:label>
         <rdfs:isDefinedBy rdf:resource="https://toot.ai/mvp/encodingFormat"/>
+        <rdfs:label xml:lang="en">encodingFormat</rdfs:label>
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/encodings">
         <rdfs:comment xml:lang="en">A media object that encodes this CreativeWork.</rdfs:comment>
@@ -31409,8 +31418,8 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/hasDriveThroughService">
         <rdfs:isDefinedBy rdf:resource="https://pending.schema.org/hasDriveThroughService"/>
-        <rdfs:label xml:lang="en">hasDriveThroughService</rdfs:label>
         <rdfs:comment xml:lang="en">Indicates whether some facility (e.g. &lt;a class=&quot;localLink&quot; href=&quot;https://schema.org/FoodEstablishment&quot;&gt;FoodEstablishment&lt;/a&gt;, &lt;a class=&quot;localLink&quot; href=&quot;https://schema.org/CovidTestingFacility&quot;&gt;CovidTestingFacility&lt;/a&gt;) offers a service that can be used by driving through in a car. In the case of &lt;a class=&quot;localLink&quot; href=&quot;https://schema.org/CovidTestingFacility&quot;&gt;CovidTestingFacility&lt;/a&gt; such facilities could potentially help with social distancing from other potentially-infected users.</rdfs:comment>
+        <rdfs:label xml:lang="en">hasDriveThroughService</rdfs:label>
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/hasMap">
         <rdfs:label xml:lang="en">hasMap</rdfs:label>
@@ -31539,13 +31548,13 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/isUnlabelledFallback">
         <rdfs:isDefinedBy rdf:resource="https://pending.schema.org/isUnlabelledFallback"/>
-        <rdfs:comment xml:lang="en">This can be marked &apos;true&apos; to indicate that some published &lt;a class=&quot;localLink&quot; href=&quot;https://schema.org/DeliveryTimeSettings&quot;&gt;DeliveryTimeSettings&lt;/a&gt; or &lt;a class=&quot;localLink&quot; href=&quot;https://schema.org/ShippingRateSettings&quot;&gt;ShippingRateSettings&lt;/a&gt; are intended to apply to all &lt;a class=&quot;localLink&quot; href=&quot;https://schema.org/OfferShippingDetails&quot;&gt;OfferShippingDetails&lt;/a&gt; published by the same merchant, when referenced by a &lt;a class=&quot;localLink&quot; href=&quot;https://schema.org/shippingSettingsLink&quot;&gt;shippingSettingsLink&lt;/a&gt; in those settings. It is not meaningful to use a &apos;true&apos; value for this property alongside a transitTimeLabel (for &lt;a class=&quot;localLink&quot; href=&quot;https://schema.org/DeliveryTimeSettings&quot;&gt;DeliveryTimeSettings&lt;/a&gt;) or shippingLabel (for &lt;a class=&quot;localLink&quot; href=&quot;https://schema.org/ShippingRateSettings&quot;&gt;ShippingRateSettings&lt;/a&gt;), since this property is for use with unlabelled settings.</rdfs:comment>
         <rdfs:label xml:lang="en">isUnlabelledFallback</rdfs:label>
+        <rdfs:comment xml:lang="en">This can be marked &apos;true&apos; to indicate that some published &lt;a class=&quot;localLink&quot; href=&quot;https://schema.org/DeliveryTimeSettings&quot;&gt;DeliveryTimeSettings&lt;/a&gt; or &lt;a class=&quot;localLink&quot; href=&quot;https://schema.org/ShippingRateSettings&quot;&gt;ShippingRateSettings&lt;/a&gt; are intended to apply to all &lt;a class=&quot;localLink&quot; href=&quot;https://schema.org/OfferShippingDetails&quot;&gt;OfferShippingDetails&lt;/a&gt; published by the same merchant, when referenced by a &lt;a class=&quot;localLink&quot; href=&quot;https://schema.org/shippingSettingsLink&quot;&gt;shippingSettingsLink&lt;/a&gt; in those settings. It is not meaningful to use a &apos;true&apos; value for this property alongside a transitTimeLabel (for &lt;a class=&quot;localLink&quot; href=&quot;https://schema.org/DeliveryTimeSettings&quot;&gt;DeliveryTimeSettings&lt;/a&gt;) or shippingLabel (for &lt;a class=&quot;localLink&quot; href=&quot;https://schema.org/ShippingRateSettings&quot;&gt;ShippingRateSettings&lt;/a&gt;), since this property is for use with unlabelled settings.</rdfs:comment>
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/jobBenefits">
-        <rdfs:label xml:lang="en">jobBenefits</rdfs:label>
         <rdfs:comment xml:lang="en">Description of benefits associated with the job.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource="https://toot.ai/mvp/jobBenefits"/>
+        <rdfs:label xml:lang="en">jobBenefits</rdfs:label>
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/jobImmediateStart">
         <rdfs:isDefinedBy rdf:resource="https://pending.schema.org/jobImmediateStart"/>
@@ -31569,8 +31578,8 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/legislationDateVersion">
         <rdfs:comment xml:lang="en">The point-in-time at which the provided description of the legislation is valid (e.g. : when looking at the law on the 2016-04-07 (= dateVersion), I get the consolidation of 2015-04-12 of the &quot;National Insurance Contributions Act 2015&quot;)</rdfs:comment>
-        <rdfs:label xml:lang="en">legislationDateVersion</rdfs:label>
         <rdfs:isDefinedBy rdf:resource="https://pending.schema.org/legislationDateVersion"/>
+        <rdfs:label xml:lang="en">legislationDateVersion</rdfs:label>
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/loanPaymentFrequency">
         <rdfs:isDefinedBy rdf:resource="https://pending.schema.org/loanPaymentFrequency"/>
@@ -31599,8 +31608,8 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/maxValue">
         <rdfs:label xml:lang="en">maxValue</rdfs:label>
-        <rdfs:isDefinedBy rdf:resource="https://toot.ai/mvp/maxValue"/>
         <rdfs:comment xml:lang="en">The upper value of some characteristic or property.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="https://toot.ai/mvp/maxValue"/>
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/maximumAttendeeCapacity">
         <rdfs:isDefinedBy rdf:resource="https://toot.ai/mvp/maximumAttendeeCapacity"/>
@@ -31684,8 +31693,8 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/multipleValues">
         <rdfs:isDefinedBy rdf:resource="https://toot.ai/mvp/multipleValues"/>
-        <rdfs:comment xml:lang="en">Whether multiple values are allowed for the property.  Default is false.</rdfs:comment>
         <rdfs:label xml:lang="en">multipleValues</rdfs:label>
+        <rdfs:comment xml:lang="en">Whether multiple values are allowed for the property.  Default is false.</rdfs:comment>
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/musicGroupMember">
         <rdfs:comment xml:lang="en">A member of a music group&amp;#x2014;for example, John, Paul, George, or Ringo.</rdfs:comment>
@@ -32014,8 +32023,8 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/roleName">
         <rdfs:comment xml:lang="en">A role played, performed or filled by a person or organization. For example, the team of creators for a comic book might fill the roles named &apos;inker&apos;, &apos;penciller&apos;, and &apos;letterer&apos;; or an athlete in a SportsTeam might play in the position named &apos;Quarterback&apos;.</rdfs:comment>
-        <rdfs:label xml:lang="en">roleName</rdfs:label>
         <rdfs:isDefinedBy rdf:resource="https://toot.ai/mvp/roleName"/>
+        <rdfs:label xml:lang="en">roleName</rdfs:label>
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/runtime">
         <rdfs:comment xml:lang="en">Runtime platform or script interpreter dependencies (Example - Java v1, Python2.3, .Net Framework 3.0).</rdfs:comment>
@@ -32123,10 +32132,10 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
         <rdfs:comment xml:lang="en">The start date and time of the item (in &lt;a href=&quot;http://en.wikipedia.org/wiki/ISO_8601&quot;&gt;ISO 8601 date format&lt;/a&gt;).</rdfs:comment>
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/startTime">
-        <rdfs:label xml:lang="en">startTime</rdfs:label>
         <rdfs:comment xml:lang="en">The startTime of something. For a reserved event or service (e.g. FoodEstablishmentReservation), the time that it is expected to start. For actions that span a period of time, when the action was performed. e.g. John wrote a book from &lt;em&gt;January&lt;/em&gt; to December. For media, including audio and video, it&apos;s the time offset of the start of a clip within a larger file.&lt;br/&gt;&lt;br/&gt;
 
 Note that Event uses startDate/endDate instead of startTime/endTime, even when describing dates with times. This situation may be clarified in future revisions.</rdfs:comment>
+        <rdfs:label xml:lang="en">startTime</rdfs:label>
         <rdfs:isDefinedBy rdf:resource="https://toot.ai/mvp/startTime"/>
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/step">
@@ -32146,8 +32155,8 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/strengthValue">
         <rdfs:label xml:lang="en">strengthValue</rdfs:label>
-        <rdfs:comment xml:lang="en">The value of an active ingredient&apos;s strength, e.g. 325.</rdfs:comment>
         <rdfs:isDefinedBy rdf:resource="https://health-lifesci.schema.org/strengthValue"/>
+        <rdfs:comment xml:lang="en">The value of an active ingredient&apos;s strength, e.g. 325.</rdfs:comment>
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/subEvent">
         <rdfs:label xml:lang="en">subEvent</rdfs:label>
@@ -32165,8 +32174,8 @@ Note that Event uses startDate/endDate instead of startTime/endTime, even when d
         <rdfs:comment xml:lang="en">Maximum recommended age in years for the audience or user.</rdfs:comment>
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/suggestedMinAge">
-        <rdfs:isDefinedBy rdf:resource="https://toot.ai/mvp/suggestedMinAge"/>
         <rdfs:comment xml:lang="en">Minimum recommended age in years for the audience or user.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="https://toot.ai/mvp/suggestedMinAge"/>
         <rdfs:label xml:lang="en">suggestedMinAge</rdfs:label>
     </rdf:Description>
     <rdf:Description rdf:about="https://toot.ai/mvp/surface">
