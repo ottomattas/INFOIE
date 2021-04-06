@@ -28016,6 +28016,14 @@ Note: This type is for information about actual reservations, e.g. in confirmati
     
 
 
+    <!-- https://toot.ai/mvp/MonitoringEvent -->
+
+    <owl:Class rdf:about="https://toot.ai/mvp/MonitoringEvent">
+        <rdfs:subClassOf rdf:resource="https://toot.ai/mvp/Event"/>
+    </owl:Class>
+    
+
+
     <!-- https://toot.ai/mvp/MortgageLoan -->
 
     <owl:Class rdf:about="https://toot.ai/mvp/MortgageLoan">
