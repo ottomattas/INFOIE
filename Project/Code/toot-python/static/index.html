@@ -119,8 +119,8 @@
             
                     <p>What would you like to do?</p>
                     <div id="btnDiv">
-                        <button class="btnOne">Show me the solution</button>
-                        <button class="btnTwo">Ignore</button>
+                        <button type="button" class="btnOne" onclick="abc()">Show me the solution</button>
+                        <button type="button" class="btnTwo" onclick="addMsg()">Ignore</button>
                     </div>
                     
             
@@ -178,7 +178,44 @@
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://d3js.org/d3.v3.min.js" type="text/javascript"></script>
 
+<script type="text/javascript"> /*THIS IS WHERE THE TOOT HAPPENS*/
+    //adding a message (msg) into the chat
+    function addOurMsg(msg) { 
+        let currentDate = new Date();
+        let time = currentDate.getHours() + ":" + currentDate.getMinutes();
+        console.log(time);
+        var textMsg;
+        if (textMsg != "") {
+            y = document.getElementById("chatStart");
+            y.insertAdjacentHTML('beforeend', '<div class="chat-message clearfix"><img src="/static/images/toot2.png" alt="" width="32" height="32"><div class="chat-message-content clearfix"><span class="chat-time">' + time + '</span><h5>toot.ai</h5><p>This is what I found:</p><p>' + msg + '</p></div></div>');
+            document.getElementById("input1").value = "";
+        }
+    }
+
+    function abc() {
+        console.log("start");
+        const query = "Twister";
+        console.log("query: " + query);
+        $.get("/icte",
+            function (data) {
+                console.log("get icte");
+                const t = $("table#results tbody").empty();
+                if (!data || data.length == 0) return;
+                data.forEach(function (movie) {
+                    console.log("forEach");
+                    $("<tr><td class='movie'>" + movie.title + "</td><td>" + movie.released + "</td><td>" + movie.tagline + "</td></tr>").appendTo(t)
+                        .click(function () { showMovie($(this).find("td.movie").text()); })
+                });
+                console.log("almost done");
+                //showMovie(data[0].title); error "show movie not defined" because the function is written in jQuery
+                addOurMsg(data[0].title);
+                console.log("movie-title: " + data[0].title);
+            }, "json");
+        return false;
+    }
+    
 </script>
+
 <script type="text/javascript">
     $(function () {
         function showMovie(title) {
