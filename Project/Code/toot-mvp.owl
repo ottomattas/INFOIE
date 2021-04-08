@@ -19,6 +19,11 @@
 #    Classes
 #################################################################
 
+###  https://toot.ai/2021/04/MVP#AbstractObject
+toot:AbstractObject rdf:type owl:Class ;
+                    rdfs:subClassOf toot:Object .
+
+
 ###  https://toot.ai/2021/04/MVP#Action
 toot:Action rdf:type owl:Class ;
             rdfs:subClassOf toot:Occurrence .
@@ -34,10 +39,27 @@ toot:Agent rdf:type owl:Class ;
            rdfs:subClassOf toot:IndividualEntity .
 
 
+###  https://toot.ai/2021/04/MVP#Collection
+toot:Collection rdf:type owl:Class ;
+                rdfs:subClassOf toot:CollectionEntity ,
+                                toot:DigitalData .
+
+
+###  https://toot.ai/2021/04/MVP#CollectionEntity
+toot:CollectionEntity rdf:type owl:Class .
+
+
 ###  https://toot.ai/2021/04/MVP#Computer
 toot:Computer rdf:type owl:Class ;
               rdfs:subClassOf toot:ComputingPlatform ,
                               toot:ITSystem .
+
+
+###  https://toot.ai/2021/04/MVP#ComputerHardware
+toot:ComputerHardware rdf:type owl:Class ;
+                      rdfs:subClassOf toot:ElectronicMachine ,
+                                      toot:InformationTechnology ,
+                                      toot:Product .
 
 
 ###  https://toot.ai/2021/04/MVP#Computing
@@ -59,9 +81,39 @@ toot:ComputingPlatform rdf:type owl:Class ;
 toot:Continuum rdf:type owl:Class .
 
 
+###  https://toot.ai/2021/04/MVP#Database
+toot:Database rdf:type owl:Class ;
+              rdfs:subClassOf toot:Product ,
+                              toot:Work .
+
+
+###  https://toot.ai/2021/04/MVP#DigitalData
+toot:DigitalData rdf:type owl:Class ;
+                 rdfs:subClassOf toot:FactualData .
+
+
+###  https://toot.ai/2021/04/MVP#DiskDrive
+toot:DiskDrive rdf:type owl:Class ;
+               rdfs:subClassOf toot:Drive .
+
+
+###  https://toot.ai/2021/04/MVP#Drive
+toot:Drive rdf:type owl:Class ;
+           rdfs:subClassOf toot:ComputerHardware .
+
+
+###  https://toot.ai/2021/04/MVP#ElectronicMachine
+toot:ElectronicMachine rdf:type owl:Class .
+
+
 ###  https://toot.ai/2021/04/MVP#Engineer
 toot:Engineer rdf:type owl:Class ;
               rdfs:subClassOf toot:Worker .
+
+
+###  https://toot.ai/2021/04/MVP#FactualData
+toot:FactualData rdf:type owl:Class ;
+                 rdfs:subClassOf toot:Information .
 
 
 ###  https://toot.ai/2021/04/MVP#Goods
@@ -90,9 +142,19 @@ toot:Individual rdf:type owl:Class ;
 toot:IndividualEntity rdf:type owl:Class .
 
 
+###  https://toot.ai/2021/04/MVP#Information
+toot:Information rdf:type owl:Class ;
+                 rdfs:subClassOf toot:AbstractObject .
+
+
 ###  https://toot.ai/2021/04/MVP#InformationSystem
 toot:InformationSystem rdf:type owl:Class ;
                        rdfs:subClassOf toot:System .
+
+
+###  https://toot.ai/2021/04/MVP#InformationTechnology
+toot:InformationTechnology rdf:type owl:Class ;
+                           rdfs:subClassOf toot:Service .
 
 
 ###  https://toot.ai/2021/04/MVP#Infrastructure
@@ -116,6 +178,11 @@ toot:Person rdf:type owl:Class ;
                             toot:Subject .
 
 
+###  https://toot.ai/2021/04/MVP#Product
+toot:Product rdf:type owl:Class ;
+             rdfs:subClassOf toot:GoodsAndServices .
+
+
 ###  https://toot.ai/2021/04/MVP#Role
 toot:Role rdf:type owl:Class .
 
@@ -135,6 +202,11 @@ toot:ServerComputer rdf:type owl:Class ;
 toot:Service rdf:type owl:Class ;
              rdfs:subClassOf toot:GoodsAndServices ,
                              toot:SpatioTemporalEntity .
+
+
+###  https://toot.ai/2021/04/MVP#Set
+toot:Set rdf:type owl:Class ;
+         rdfs:subClassOf toot:CollectionEntity .
 
 
 ###  https://toot.ai/2021/04/MVP#Spacetime
@@ -163,6 +235,11 @@ toot:System rdf:type owl:Class ;
 ###  https://toot.ai/2021/04/MVP#TemporalEntity
 toot:TemporalEntity rdf:type owl:Class ;
                     rdfs:subClassOf toot:SpatioTemporalEntity .
+
+
+###  https://toot.ai/2021/04/MVP#Work
+toot:Work rdf:type owl:Class ;
+          rdfs:subClassOf toot:Product .
 
 
 ###  https://toot.ai/2021/04/MVP#Worker
