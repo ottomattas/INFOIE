@@ -1,130 +1,173 @@
+@prefix : <https://toot.ai/2021/04/MVP#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix toot: <https://toot.ai/2021/04/MVP#> .
+@base <https://toot.ai/2021/04/MVP> .
 
-<https://toot.ai/2021/04/MVP>
-  a owl:Ontology ;
-  rdfs:comment "This ontology describes a hierarchy of service components commonly used by MSPs today"@en ,
-  "Deze ontologie beschrijft een hiërarchie van servicecomponenten die tegenwoordig algemeen door MSP's worden gebruikt"@nl ;
-  owl:versionIRI <https://toot.ai/2021/04/MVP> ;
-  owl:versionInfo "$Date: 2021/04/08 13:37:00 $" ;
-  rdfs:label "Service components"@en, "Service componenten"@nl .
+<https://toot.ai/2021/04/MVP> rdf:type owl:Ontology ;
+                               owl:versionIRI <https://toot.ai/2021/04/MVP> ;
+                               rdfs:comment "Deze ontologie beschrijft een hiërarchie van servicecomponenten die tegenwoordig algemeen door MSP's worden gebruikt"@nl ,
+                                            "This ontology describes a hierarchy of service components commonly used by MSPs today"@en ;
+                               rdfs:label "Service componenten"@nl ,
+                                          "Service components"@en ;
+                               owl:versionInfo "$Date: 2021/04/08 13:37:00 $" .
 
-toot:Acrylic
-  a owl:Class ;
-  rdfs:subClassOf toot:SyntheticFibre ;
-  rdfs:label "Acrylic"@en, "Acrílico"@es, "Acrylique"@fr .
+#################################################################
+#    Classes
+#################################################################
 
-toot:BastFibre
-  a owl:Class ;
-  rdfs:subClassOf toot:ClothingMaterial ;
-  rdfs:label "Bast fibre"@en, "Fibras del líber"@es, "Fibres libériennes"@fr .
+###  https://toot.ai/2021/04/MVP#Action
+toot:Action rdf:type owl:Class ;
+            rdfs:subClassOf toot:Occurrence .
 
-toot:CellulosicFibre
-  a owl:Class ;
-  rdfs:subClassOf toot:ClothingMaterial ;
-  rdfs:label "Cellulosic fibre"@en, "Fibra celulósica"@es, "Fibre cellulosique"@fr .
 
-toot:ClothingMaterial
-  a owl:Class ;
-  rdfs:label "Clothing Material"@en, "Materiales pra prendas de vestir"@es, "Matériaux pour vêtements"@fr .
+###  https://toot.ai/2021/04/MVP#Activity
+toot:Activity rdf:type owl:Class ;
+              rdfs:subClassOf toot:Action .
 
-toot:Cotton
-  a owl:Class ;
-  rdfs:subClassOf toot:ClothingMaterial ;
-  rdfs:label "Cotton"@en, "Algodoón"@es, "Coton"@fr .
 
-toot:Elastane
-  a owl:Class ;
-  rdfs:subClassOf toot:SyntheticFibre ;
-  rdfs:label "Elastane"@en, "Elastano"@es, "Élasthanne"@fr .
+###  https://toot.ai/2021/04/MVP#Agent
+toot:Agent rdf:type owl:Class ;
+           rdfs:subClassOf toot:IndividualEntity .
 
-toot:ExperimentalFabric
-  a owl:Class ;
-  rdfs:subClassOf toot:ClothingMaterial ;
-  rdfs:label "Experimental Fabric"@en, "Fibras experimentales"@es, "Tissus expérimentales"@fr .
 
-toot:Leather
-  a owl:Class ;
-  rdfs:subClassOf toot:ClothingMaterial ;
-  rdfs:label "Leather"@en, "Cuero"@es, "Cuir"@fr .
+###  https://toot.ai/2021/04/MVP#Computer
+toot:Computer rdf:type owl:Class ;
+              rdfs:subClassOf toot:ComputingPlatform ,
+                              toot:ITSystem .
 
-toot:Linen
-  a owl:Class ;
-  rdfs:subClassOf toot:BastFibre ;
-  rdfs:label "Linen"@en, "Lino"@es, "Lin"@fr .
 
-toot:Lycra
-  a owl:Class ;
-  rdfs:subClassOf toot:Elastane ;
-  rdfs:label "Lycra"@en, "Lycra"@es, "Lycra"@fr .
+###  https://toot.ai/2021/04/MVP#Computing
+toot:Computing rdf:type owl:Class ;
+               rdfs:subClassOf toot:Activity .
 
-toot:Merino
-  a owl:Class ;
-  rdfs:subClassOf toot:Wool ;
-  rdfs:label "Merino"@en, "Lana de merino"@es, "Laine mérinos"@fr .
 
-toot:Nubuck
-  a owl:Class ;
-  rdfs:subClassOf toot:Leather ;
-  rdfs:label "Nubuck"@en, "Nubuck"@es, "Nubuc"@es, "Nobuck"@es, "Nubuck"@fr .
+###  https://toot.ai/2021/04/MVP#ComputingInfrastructure
+toot:ComputingInfrastructure rdf:type owl:Class ;
+                             rdfs:subClassOf toot:Computing .
 
-toot:Nylon
-  a owl:Class ;
-  rdfs:subClassOf toot:SyntheticFibre ;
-  rdfs:label "Nylon"@en, "Nylon"@es, "Nylon"@fr .
 
-toot:Piatex
-  a owl:Class ;
-  rdfs:subClassOf toot:ExperimentalFabric ;
-  rdfs:label "Piñatex"@en, "Piñatex"@es, "Piñatex"@fr .
+###  https://toot.ai/2021/04/MVP#ComputingPlatform
+toot:ComputingPlatform rdf:type owl:Class ;
+                       rdfs:subClassOf toot:ComputingInfrastructure .
 
-toot:Polyester
-  a owl:Class ;
-  rdfs:subClassOf toot:SyntheticFibre ;
-  rdfs:label "Polyester"@en, "Polyester"@es, "Polyester"@fr .
 
-toot:Polypropylene
-  a owl:Class ;
-  rdfs:subClassOf toot:SyntheticFibre ;
-  rdfs:label "Polypropylene"@en, "Polypropylène"@fr, "Polipropileno"@es .
+###  https://toot.ai/2021/04/MVP#Continuum
+toot:Continuum rdf:type owl:Class .
 
-toot:Polyurethane
-  a owl:Class ;
-  rdfs:subClassOf toot:ClothingMaterial ;
-  rdfs:label "Polyurethane"@en, "PU"@en, "Polyuretano"@es, "Polyuréthane"@fr .
 
-toot:RecycledPolyester
-  a owl:Class ;
-  rdfs:subClassOf toot:Polyester ;
-  rdfs:label "Recycled polyester"@en, "Polyester reciclado"@es, "Polyester recyclé"@fr .
+###  https://toot.ai/2021/04/MVP#Engineer
+toot:Engineer rdf:type owl:Class ;
+              rdfs:subClassOf toot:Worker .
 
-toot:Rubber
-  a owl:Class ;
-  rdfs:subClassOf toot:ClothingMaterial ;
-  rdfs:label "Rubber"@en, "Goma"@es, "Caucho"@es, "Caoutchouc"@fr .
 
-toot:Silk
-  a owl:Class ;
-  rdfs:subClassOf toot:ClothingMaterial ;
-  rdfs:label "Silk"@en, "Seda"@es, "Soie"@fr .
+###  https://toot.ai/2021/04/MVP#Goods
+toot:Goods rdf:type owl:Class ;
+           rdfs:subClassOf toot:GoodsAndServices ,
+                           toot:Object .
 
-toot:Suede
-  a owl:Class ;
-  rdfs:subClassOf toot:Leather ;
-  rdfs:label "Suede"@en, "Ante"@es, "Gamuza"@es, "Suède"@fr .
 
-toot:SyntheticFibre
-  a owl:Class ;
-  rdfs:subClassOf toot:ClothingMaterial ;
-  rdfs:label "Synthetic fibre"@en, "Fibra sintética"@es, "Fibres synthétiques"@fr .
+###  https://toot.ai/2021/04/MVP#GoodsAndServices
+toot:GoodsAndServices rdf:type owl:Class ;
+                      rdfs:subClassOf toot:Object ,
+                                      toot:SpatioTemporalEntity .
 
-toot:Viscose
-  a owl:Class ;
-  rdfs:subClassOf toot:CellulosicFibre ;
-  rdfs:label "Viscose"@en, "Viscosa"@es, "Viscose"@fr .
 
-toot:Wool
-  a owl:Class ;
-  rdfs:subClassOf toot:ClothingMaterial ;
-  rdfs:label "Wool"@en, "Lana"@es, "Laine"@fr .
+###  https://toot.ai/2021/04/MVP#ITSystem
+toot:ITSystem rdf:type owl:Class ;
+              rdfs:subClassOf toot:InformationSystem .
+
+
+###  https://toot.ai/2021/04/MVP#Individual
+toot:Individual rdf:type owl:Class ;
+                rdfs:subClassOf toot:IndividualEntity .
+
+
+###  https://toot.ai/2021/04/MVP#IndividualEntity
+toot:IndividualEntity rdf:type owl:Class .
+
+
+###  https://toot.ai/2021/04/MVP#InformationSystem
+toot:InformationSystem rdf:type owl:Class ;
+                       rdfs:subClassOf toot:System .
+
+
+###  https://toot.ai/2021/04/MVP#Infrastructure
+toot:Infrastructure rdf:type owl:Class ;
+                    rdfs:subClassOf toot:Goods .
+
+
+###  https://toot.ai/2021/04/MVP#Object
+toot:Object rdf:type owl:Class .
+
+
+###  https://toot.ai/2021/04/MVP#Occurrence
+toot:Occurrence rdf:type owl:Class ;
+                rdfs:subClassOf toot:TemporalEntity .
+
+
+###  https://toot.ai/2021/04/MVP#Person
+toot:Person rdf:type owl:Class ;
+            rdfs:subClassOf toot:Agent ,
+                            toot:Individual ,
+                            toot:Subject .
+
+
+###  https://toot.ai/2021/04/MVP#Role
+toot:Role rdf:type owl:Class .
+
+
+###  https://toot.ai/2021/04/MVP#Server
+toot:Server rdf:type owl:Class ;
+            rdfs:subClassOf toot:System .
+
+
+###  https://toot.ai/2021/04/MVP#ServerComputer
+toot:ServerComputer rdf:type owl:Class ;
+                    rdfs:subClassOf toot:Computer ,
+                                    toot:Server .
+
+
+###  https://toot.ai/2021/04/MVP#Service
+toot:Service rdf:type owl:Class ;
+             rdfs:subClassOf toot:GoodsAndServices ,
+                             toot:SpatioTemporalEntity .
+
+
+###  https://toot.ai/2021/04/MVP#Spacetime
+toot:Spacetime rdf:type owl:Class ;
+               rdfs:subClassOf toot:Continuum .
+
+
+###  https://toot.ai/2021/04/MVP#SpatioTemporalEntity
+toot:SpatioTemporalEntity rdf:type owl:Class ;
+                          rdfs:subClassOf toot:Spacetime .
+
+
+###  https://toot.ai/2021/04/MVP#Structure
+toot:Structure rdf:type owl:Class .
+
+
+###  https://toot.ai/2021/04/MVP#Subject
+toot:Subject rdf:type owl:Class .
+
+
+###  https://toot.ai/2021/04/MVP#System
+toot:System rdf:type owl:Class ;
+            rdfs:subClassOf toot:Structure .
+
+
+###  https://toot.ai/2021/04/MVP#TemporalEntity
+toot:TemporalEntity rdf:type owl:Class ;
+                    rdfs:subClassOf toot:SpatioTemporalEntity .
+
+
+###  https://toot.ai/2021/04/MVP#Worker
+toot:Worker rdf:type owl:Class ;
+            rdfs:subClassOf toot:Person .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
