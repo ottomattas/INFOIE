@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://neo4j-documentation.github.io/developer-resources/language-guides/assets/css/main.css">
     <title>Neo4j Movies</title>
 </head>
@@ -72,6 +73,101 @@
         </div>
     </div>
 </div>
+<div id="live-chat">
+    
+    <header class="clearfix">
+      
+      <a href="#" class="chat-close">x</a>
+
+      <h4>Toot.ai</h4>
+
+      <span class="chat-message-counter">2</span>
+
+    </header>
+
+    <div class="chat">
+      
+      <div id="chatStart" class="chat-history">
+        
+        <div class="chat-message clearfix">
+          
+          <img src="./images/toot2.png" alt="" width="32" height="32">
+
+          <div class="chat-message-content clearfix">
+            
+            <span class="chat-time">13:35</span>
+
+            <h5>toot.ai</h5>
+
+            <p>Hello Marc,</p> 
+            <p>I have found the following error report in your system environment: Error, Diskspace, Under 15%</p>
+
+          </div> <!-- end chat-message-content -->
+
+        </div> <!-- end chat-message -->
+      
+              
+            <div class="chat-message clearfix">
+            
+                <img src="./images/toot2.png" alt="" width="32" height="32">
+            
+                <div class="chat-message-content clearfix">
+            
+                    <span class="chat-time">13:35</span>
+            
+                    <h5>toot.ai</h5>
+            
+                    <p>What would you like to do?</p>
+                    <div id="btnDiv">
+                        <button class="btnOne">Show me the solution</button>
+                        <button class="btnTwo">Ignore</button>
+                    </div>
+                    
+            
+                </div> <!-- end chat-message-content -->
+            
+            </div> <!-- end chat-message -->
+
+        <hr>
+        <!---
+        <div class="chat-message clearfix">
+          
+          <img src="http://gravatar.com/avatar/2c0ad52fc5943b78d6abe069cc08f320?s=32" alt="" width="32" height="32">
+
+          <div class="chat-message-content clearfix">
+            
+            <span class="chat-time">13:37</span>
+
+            <h5>Marc Biedermann</h5>
+
+            <p>test</p>
+
+          </div> 
+
+        </div> 
+
+        <hr> -->
+
+      </div> <!-- end chat-history -->
+
+      <!--<p class="chat-feedback">Yazıyor..</p>-->
+
+      <form>
+
+        <fieldset>
+          
+          <input id="input1" type="text" placeholder="Type Message" autofocus>
+          <input type="hidden">
+          <button type="button" id="sendBtn" onclick="addMsg()">Send</button>
+
+        </fieldset>
+
+      </form>
+      
+
+    </div> <!-- end chat -->
+
+  </div> <!-- end live-chat -->
 <style type="text/css">
     .node { stroke: #222; stroke-width: 1.5px; }
     .node.actor { fill: #888; }
@@ -79,8 +175,10 @@
     .link { stroke: #999; stroke-opacity: .6; stroke-width: 1px; }
 </style>
 
-<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://d3js.org/d3.v3.min.js" type="text/javascript"></script>
+
+</script>
 <script type="text/javascript">
     $(function () {
         function showMovie(title) {
@@ -115,6 +213,7 @@
         search();
     })
 </script>
+
 
 <script type="text/javascript">
     const width = 800, height = 800;
@@ -158,5 +257,6 @@
         });
     });
 </script>
+<script src="script.js" type="text/javascript"></script>
 </body>
 </html>
