@@ -8,7 +8,7 @@ from neo4j import GraphDatabase, basic_auth
 
 app = Flask(__name__, static_url_path='/static/')
 
-url = os.getenv("NEO4J_URI", "neo4j://localhost")
+url = os.getenv("NEO4J_URI", "neo4j+s://demo.neo4jlabs.com")
 username = os.getenv("NEO4J_USER", "movies")
 password = os.getenv("NEO4J_PASSWORD", "movies")
 neo4jVersion = os.getenv("NEO4J_VERSION", "")
@@ -37,6 +37,12 @@ def close_db(error):
 @app.route("/")
 def get_index():
     return app.send_static_file('index.html')
+
+def get_css():
+    return app.send_static_file('style.css')
+
+def get_js():
+    return app.send_static_file('script.js')
 
 
 def serialize_movie(movie):
