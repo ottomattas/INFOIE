@@ -45,6 +45,11 @@ toot:Catalogue rdf:type owl:Class ;
                                toot:List .
 
 
+###  https://toot.ai/2021/04/MVP#Class
+toot:Class rdf:type owl:Class ;
+           rdfs:subClassOf toot:CollectionEntity .
+
+
 ###  https://toot.ai/2021/04/MVP#Collection
 toot:Collection rdf:type owl:Class ;
                 rdfs:subClassOf toot:CollectionEntity ,
@@ -262,6 +267,11 @@ toot:System rdf:type owl:Class ;
 ###  https://toot.ai/2021/04/MVP#TemporalEntity
 toot:TemporalEntity rdf:type owl:Class ;
                     rdfs:subClassOf toot:SpatioTemporalEntity .
+
+
+###  https://toot.ai/2021/04/MVP#Type
+toot:Type rdf:type owl:Class ;
+          rdfs:subClassOf toot:Class .
 
 
 ###  https://toot.ai/2021/04/MVP#Work
