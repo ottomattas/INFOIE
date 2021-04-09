@@ -8,16 +8,32 @@ from neo4j import GraphDatabase, basic_auth
 
 app = Flask(__name__, static_url_path='/static/')
 
-url = os.getenv("NEO4J_URI", "neo4j://localhost")
-username = os.getenv("NEO4J_USER", "movies")
-password = os.getenv("NEO4J_PASSWORD", "movies")
+url = os.getenv("NEO4J_URI", "bolt://localhost:7687")
+username = os.getenv("NEO4J_USER", "neo4j")
+password = os.getenv("NEO4J_PASSWORD", "matlab")
 neo4jVersion = os.getenv("NEO4J_VERSION", "")
-database = os.getenv("NEO4J_DATABASE", "movies")
+database = os.getenv("NEO4J_DATABASE", "Movie Database")
+
+#url = os.getenv("NEO4J_URI", "neo4j+s://demo.neo4jlabs.com")
+#username = os.getenv("NEO4J_USER", "movies")
+#password = os.getenv("NEO4J_PASSWORD", "movies")
+#neo4jVersion = os.getenv("NEO4J_VERSION", "")
+#database = os.getenv("NEO4J_DATABASE", "movies")
 
 port = os.getenv("PORT", 8080)
 
 driver = GraphDatabase.driver(url, auth=basic_auth(username, password))
-
+# This is our new query
+@app.route("/icte")
+def get_solution():
+    db = get_db()
+    q = "twister" #this is the query word /movie title
+    results = db.read_transaction(lambda tx: list(tx.run("MATCH (movie:Movie) "
+                                                        "WHERE movie.title =~ $title "
+                                                        "RETURN movie", {"title": "(?i).*" + q + ".*"}
+                                                        )))
+    return Response(dumps([serialize_movie(record['movie']) for record in results]),
+                    mimetype="application/json")
 
 def get_db():
     if not hasattr(g, 'neo4j_db'):

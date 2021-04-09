@@ -1,6 +1,11 @@
 
 (function () {
 
+  $( document ).ready(function() {
+    $('.chat').toggle();
+    $('.chat-message-counter').toggle();
+  });
+
   $('#live-chat header').on('click', function () {
 
     $('.chat').slideToggle(300, 'swing');
@@ -16,6 +21,30 @@
   });
 
 })();
+/*
+function abc() {
+  console.log("start");
+  const query="Twister";
+  console.log("query: "+query);
+  $.get("/icte",
+    function (data) {
+      console.log("get icte");
+      const t = $("table#results tbody").empty();
+      if (!data || data.length == 0) return;
+      data.forEach(function (movie) {
+        console.log("forEach");
+        $("<tr><td class='movie'>" + movie.title + "</td><td>" + movie.released + "</td><td>" + movie.tagline + "</td></tr>").appendTo(t)
+          .click(function () { showMovie($(this).find("td.movie").text()); })
+      });
+      console.log("almost done");
+      showMovie(data[0].title);
+      addOurMsg(movie.title);
+      console.log("movie-title: "+movie.title);
+    }, "json");
+  return false;
+}*/
+
+
 
 function addMsg() {
   let currentDate = new Date();
