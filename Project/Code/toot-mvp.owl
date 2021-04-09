@@ -55,6 +55,11 @@ toot:Collection rdf:type owl:Class ;
 toot:CollectionEntity rdf:type owl:Class .
 
 
+###  https://toot.ai/2021/04/MVP#CompanyCatalogue
+toot:CompanyCatalogue rdf:type owl:Class ;
+                      rdfs:subClassOf toot:Catalogue .
+
+
 ###  https://toot.ai/2021/04/MVP#Computer
 toot:Computer rdf:type owl:Class ;
               rdfs:subClassOf toot:ComputingPlatform ,
@@ -85,11 +90,6 @@ toot:ComputingPlatform rdf:type owl:Class ;
 
 ###  https://toot.ai/2021/04/MVP#Continuum
 toot:Continuum rdf:type owl:Class .
-
-
-###  https://toot.ai/2021/04/MVP#CustomerCatalogue
-toot:CustomerCatalogue rdf:type owl:Class ;
-                       rdfs:subClassOf toot:Catalogue .
 
 
 ###  https://toot.ai/2021/04/MVP#Database
@@ -272,24 +272,9 @@ toot:Worker rdf:type owl:Class ;
 #    Individuals
 #################################################################
 
-###  https://toot.ai/2021/04/MVP#Centralpoint
-toot:Centralpoint rdf:type owl:NamedIndividual ,
-                           toot:CustomerCatalogue .
-
-
 ###  https://toot.ai/2021/04/MVP#Development
 toot:Development rdf:type owl:NamedIndividual ,
                           toot:Environment .
-
-
-###  https://toot.ai/2021/04/MVP#Intersolve
-toot:Intersolve rdf:type owl:NamedIndividual ,
-                         toot:CustomerCatalogue .
-
-
-###  https://toot.ai/2021/04/MVP#Medicore
-toot:Medicore rdf:type owl:NamedIndividual ,
-                       toot:CustomerCatalogue .
 
 
 ###  https://toot.ai/2021/04/MVP#Production
