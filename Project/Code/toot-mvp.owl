@@ -93,6 +93,16 @@ toot:ComputingPlatform rdf:type owl:Class ;
                        rdfs:subClassOf toot:ComputingInfrastructure .
 
 
+###  https://toot.ai/2021/04/MVP#Condition
+toot:Condition rdf:type owl:Class ;
+               rdfs:subClassOf toot:State .
+
+
+###  https://toot.ai/2021/04/MVP#Consequence
+toot:Consequence rdf:type owl:Class ;
+                 rdfs:subClassOf toot:Inference .
+
+
 ###  https://toot.ai/2021/04/MVP#Continuum
 toot:Continuum rdf:type owl:Class .
 
@@ -154,6 +164,11 @@ toot:ITSystem rdf:type owl:Class ;
               rdfs:subClassOf toot:InformationSystem .
 
 
+###  https://toot.ai/2021/04/MVP#Incident
+toot:Incident rdf:type owl:Class ;
+              rdfs:subClassOf toot:Occurrence .
+
+
 ###  https://toot.ai/2021/04/MVP#Individual
 toot:Individual rdf:type owl:Class ;
                 rdfs:subClassOf toot:IndividualEntity .
@@ -161,6 +176,11 @@ toot:Individual rdf:type owl:Class ;
 
 ###  https://toot.ai/2021/04/MVP#IndividualEntity
 toot:IndividualEntity rdf:type owl:Class .
+
+
+###  https://toot.ai/2021/04/MVP#Inference
+toot:Inference rdf:type owl:Class ;
+               rdfs:subClassOf toot:Process .
 
 
 ###  https://toot.ai/2021/04/MVP#Information
@@ -210,9 +230,33 @@ toot:Person rdf:type owl:Class ;
                             toot:Subject .
 
 
+###  https://toot.ai/2021/04/MVP#Phenomenon
+toot:Phenomenon rdf:type owl:Class ;
+                rdfs:subClassOf toot:Occurrence .
+
+
+###  https://toot.ai/2021/04/MVP#Problem
+toot:Problem rdf:type owl:Class ;
+             rdfs:subClassOf toot:Condition .
+
+
+###  https://toot.ai/2021/04/MVP#Process
+toot:Process rdf:type owl:Class ;
+             rdfs:subClassOf toot:TemporalEntity .
+
+
 ###  https://toot.ai/2021/04/MVP#Product
 toot:Product rdf:type owl:Class ;
              rdfs:subClassOf toot:GoodsAndServices .
+
+
+###  https://toot.ai/2021/04/MVP#Property
+toot:Property rdf:type owl:Class .
+
+
+###  https://toot.ai/2021/04/MVP#Result
+toot:Result rdf:type owl:Class ;
+            rdfs:subClassOf toot:Consequence .
 
 
 ###  https://toot.ai/2021/04/MVP#Role
@@ -241,6 +285,11 @@ toot:Set rdf:type owl:Class ;
          rdfs:subClassOf toot:CollectionEntity .
 
 
+###  https://toot.ai/2021/04/MVP#Solution
+toot:Solution rdf:type owl:Class ;
+              rdfs:subClassOf toot:Result .
+
+
 ###  https://toot.ai/2021/04/MVP#Spacetime
 toot:Spacetime rdf:type owl:Class ;
                rdfs:subClassOf toot:Continuum .
@@ -249,6 +298,12 @@ toot:Spacetime rdf:type owl:Class ;
 ###  https://toot.ai/2021/04/MVP#SpatioTemporalEntity
 toot:SpatioTemporalEntity rdf:type owl:Class ;
                           rdfs:subClassOf toot:Spacetime .
+
+
+###  https://toot.ai/2021/04/MVP#State
+toot:State rdf:type owl:Class ;
+           rdfs:subClassOf toot:Phenomenon ,
+                           toot:Property .
 
 
 ###  https://toot.ai/2021/04/MVP#Structure
@@ -262,6 +317,12 @@ toot:Subject rdf:type owl:Class .
 ###  https://toot.ai/2021/04/MVP#System
 toot:System rdf:type owl:Class ;
             rdfs:subClassOf toot:Structure .
+
+
+###  https://toot.ai/2021/04/MVP#Task
+toot:Task rdf:type owl:Class ;
+          rdfs:subClassOf toot:Activity ;
+          rdfs:subClassOf toot:Problem .
 
 
 ###  https://toot.ai/2021/04/MVP#TemporalEntity
