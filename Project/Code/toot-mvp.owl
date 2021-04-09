@@ -55,11 +55,6 @@ toot:Collection rdf:type owl:Class ;
 toot:CollectionEntity rdf:type owl:Class .
 
 
-###  https://toot.ai/2021/04/MVP#CompanyCatalogue
-toot:CompanyCatalogue rdf:type owl:Class ;
-                      rdfs:subClassOf toot:Catalogue .
-
-
 ###  https://toot.ai/2021/04/MVP#Computer
 toot:Computer rdf:type owl:Class ;
               rdfs:subClassOf toot:ComputingPlatform ,
@@ -192,6 +187,12 @@ toot:Occurrence rdf:type owl:Class ;
                 rdfs:subClassOf toot:TemporalEntity .
 
 
+###  https://toot.ai/2021/04/MVP#Organization
+toot:Organization rdf:type owl:Class ;
+                  rdfs:subClassOf toot:Agent ,
+                                  toot:Structure .
+
+
 ###  https://toot.ai/2021/04/MVP#Person
 toot:Person rdf:type owl:Class ;
             rdfs:subClassOf toot:Agent ,
@@ -211,11 +212,6 @@ toot:Role rdf:type owl:Class .
 ###  https://toot.ai/2021/04/MVP#Server
 toot:Server rdf:type owl:Class ;
             rdfs:subClassOf toot:System .
-
-
-###  https://toot.ai/2021/04/MVP#ServerCatalogue
-toot:ServerCatalogue rdf:type owl:Class ;
-                     rdfs:subClassOf toot:Catalogue .
 
 
 ###  https://toot.ai/2021/04/MVP#ServerComputer
