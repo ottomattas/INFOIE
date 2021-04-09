@@ -55,6 +55,11 @@ toot:Collection rdf:type owl:Class ;
 toot:CollectionEntity rdf:type owl:Class .
 
 
+###  https://toot.ai/2021/04/MVP#Company
+toot:Company rdf:type owl:Class ;
+             rdfs:subClassOf toot:Organization .
+
+
 ###  https://toot.ai/2021/04/MVP#Computer
 toot:Computer rdf:type owl:Class ;
               rdfs:subClassOf toot:ComputingPlatform ,
