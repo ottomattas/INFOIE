@@ -10,9 +10,9 @@ app = Flask(__name__, static_url_path='/static/')
 
 url = os.getenv("NEO4J_URI", "bolt://localhost:7687")
 username = os.getenv("NEO4J_USER", "neo4j")
-password = os.getenv("NEO4J_PASSWORD", "matlab")
+password = os.getenv("NEO4J_PASSWORD", "")
 neo4jVersion = os.getenv("NEO4J_VERSION", "")
-database = os.getenv("NEO4J_DATABASE", "Movie Database")
+database = os.getenv("NEO4J_DATABASE", "toot-mvp")
 
 #url = os.getenv("NEO4J_URI", "neo4j+s://demo.neo4jlabs.com")
 #username = os.getenv("NEO4J_USER", "movies")
@@ -28,11 +28,11 @@ driver = GraphDatabase.driver(url, auth=basic_auth(username, password))
 def get_solution():
     db = get_db()
     q = "twister" #this is the query word /movie title
-    results = db.read_transaction(lambda tx: list(tx.run("MATCH (movie:Movie) "
-                                                        "WHERE movie.title =~ $title "
-                                                        "RETURN movie", {"title": "(?i).*" + q + ".*"}
+    results = db.read_transaction(lambda tx: list(tx.run('MATCH (:Environment { serverEnvironment: "Production"})<-[:IN_ENVIRONMENT]-(s:Server)-[:USED_BY]->(:Company { companyName: "Centralpoint"}), '
+      '(sol:Solution { solutionId: "3"}) '
+'RETURN sol '
                                                         )))
-    return Response(dumps([serialize_movie(record['movie']) for record in results]),
+    return Response(dumps([serialize_movie(record['sol']) for record in results]),
                     mimetype="application/json")
 
 def get_db():
@@ -61,15 +61,10 @@ def get_js():
     return app.send_static_file('script.js')
 
 
-def serialize_movie(movie):
+def serialize_movie(sol):
     return {
-        'id': movie['id'],
-        'title': movie['title'],
-        'summary': movie['summary'],
-        'released': movie['released'],
-        'duration': movie['duration'],
-        'rated': movie['rated'],
-        'tagline': movie['tagline']
+        'id': sol['id'],
+        'title': sol['solutionName']
     }
 
 
@@ -85,15 +80,20 @@ def serialize_cast(cast):
 def get_graph():
     db = get_db()
     results = db.read_transaction(lambda tx: list(tx.run("MATCH (m:Movie)<-[:ACTED_IN]-(a:Person) "
-                                                         "RETURN m.title as movie, collect(a.name) as cast "
-                                                         "LIMIT $limit", {
-                                                             "limit": request.args.get("limit",
-                                                                                       100)})))
+                                                        "RETURN m.title as movie, collect(a.name) as cast "
+                                                        "LIMIT $limit", {
+                                                            "limit": request.args.get("limit",
+                                                                                      100)})))
+    # results = db.read_transaction(lambda tx: list(tx.run("MATCH (n) "
+    #                                                      "RETURN n "
+    #                                                      "LIMIT $limit", {
+    #                                                          "limit": request.args.get("limit",
+    #                                                                                    100)})))
     nodes = []
     rels = []
     i = 0
     for record in results:
-        nodes.append({"title": record["movie"], "label": "movie"})
+        nodes.append({"title": record["Company"], "label": "Company"})
         target = i
         i += 1
         for name in record['cast']:
