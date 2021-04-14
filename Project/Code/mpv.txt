@@ -1,0 +1,136 @@
+How-to Setup Initial Version
+
+1. Initialise a new graph (name it via neo4j.conf, e.g toot-mvp)
+
+2. Create constraint for RDF import w/
+CREATE CONSTRAINT n10s_unique_uri ON (r:Resource) ASSERT r.uri IS UNIQUE
+
+3. Init n10s config w/
+CALL n10s.graphconfig.init
+
+4. Import ontology w/
+CALL n10s.onto.import.fetch(
+    "https://raw.githubusercontent.com/ottomattas/INFOIE/main/Project/Code/toot-mvp.owl",
+    "Turtle")
+
+---
+
+5. Update company listing CSV w/
+cp csv/companies.csv /usr/local/Cellar/neo4j/4.2.4/libexec/import/
+
+6. Load CSV with companies
+LOAD CSV WITH HEADERS FROM "file:///companies.csv"  AS row
+MERGE (comp:Company { companyName: row.companyName })
+      ON CREATE SET comp.companyId = row.companyId,
+                    comp.url = row.url
+MERGE (typ:Type { companyType: row.companyType })
+MERGE (comp)-[:HAS_TYPE]->(typ)
+
+7. Link companies to the catalogue
+MATCH
+  (comp:Company),
+  (cla: n4sch__Class{n4sch__name: 'Company'})
+MERGE (comp)-[:LISTED_IN]->(cla)
+
+8. Update server listing CSV w/
+cp csv/servers.csv /usr/local/Cellar/neo4j/4.2.4/libexec/import/
+
+9. Load CSV with servers
+LOAD CSV WITH HEADERS FROM "file:///servers.csv"  AS row
+MERGE (s:Server { serverName: row.serverName })
+      ON CREATE SET s.companyId = row.companyId,
+                    s.url = row.url
+MERGE (env:Environment { serverEnvironment: row.serverEnvironment })
+MERGE (s)-[:IN_ENVIRONMENT]->(env)
+
+10. Link servers to the the class
+MATCH
+  (s:Server),
+  (cla: n4sch__Class {n4sch__name: 'ServerComputer'})
+MERGE (s)-[:LISTED_IN]->(cla)
+
+
+11. Link servers to companies
+MATCH (s:Server)-->(), (c:Company)-->()
+WHERE s.companyId = c.companyId
+MERGE (s)-[:USED_BY]->(c)
+
+12. Link environments to a class
+MATCH
+  (e:Environment),
+  (c:n4sch__Class{n4sch__name: 'Environment'})
+MERGE (e)-[:PART_OF]->(c)
+
+13. Link types to a class
+MATCH
+  (t:Type),
+  (c:n4sch__Class{n4sch__name: 'Type'})
+MERGE (t)-[:PART_OF]->(c)
+
+
+Inference
+14. Load CSV with solutions
+LOAD CSV WITH HEADERS FROM "file:///solutions.csv"  AS row
+MERGE (s:Solution { solutionName: row.solutionName })
+      ON CREATE SET s.solutionId = row.solutionId,
+                    s.url = row.url
+
+15. Link solutions to a class
+MATCH
+  (s:Solution),
+  (c:n4sch__Class{n4sch__name: 'Solution'})
+MERGE (s)-[:PART_OF]->(c)
+
+16. Load CSV with engineers
+LOAD CSV WITH HEADERS FROM "file:///engineers.csv"  AS row
+MERGE (e:Engineer { engineerName: row.engineerName })
+      ON CREATE SET e.engineerId = row.engineerId,
+                    e.url = row.url
+MERGE (l:EngineerLevel { engineerLevel: row.engineerLevel })
+MERGE (e)-[:HAS_LEVEL]->(l)
+
+17. Link engineers to a class
+MATCH
+  (e:Engineer),
+  (cla: n4sch__Class {n4sch__name: 'Person'})
+MERGE (e)-[:IS_A]->(cla)
+
+MATCH
+  (e:Engineer),
+  (cla: n4sch__Class {n4sch__name: 'Engineer'})
+MERGE (e)-[:IS_A]->(cla)
+
+
+MVP:
+* Company 1 allows only Solution 3 for Environment 3. What env is the server part of?
+MATCH (:Environment { serverEnvironment: "Production"})<-[:IN_ENVIRONMENT]-(s:Server)-[:USED_BY]->(:Company { companyName: "Centralpoint"}),
+      (sol:Solution { solutionId: "3"})
+RETURN s as server, sol.solutionName as solution
+
+* Company 2 allows Solution 1 and 2 for Environment 3.
+MATCH (:Environment { serverEnvironment: "Production"})<-[:IN_ENVIRONMENT]-(s:Server)-[:USED_BY]->(:Company { companyName: "Centralpoint"}),
+      (sol1:Solution { solutionId: "1"}),
+      (sol2:Solution { solutionId: "2"})
+RETURN s as server, sol1.solutionName as solution1, sol2.solutionName as solution2
+
+* Company 3 allows Solution 3 for JUNIOR engineer.
+MATCH (el:EngineerLevel { engineerLevel: "Junior"})<-[:HAS_LEVEL]-(e:Engineer),
+      (sol:Solution { solutionId: "3"})
+RETURN e.engineerName as engineer, sol.solutionName as solution
+
+* Company 2 allows Solution 1 for JUNIOR engineer.
+MATCH (el:EngineerLevel { engineerLevel: "Junior"})<-[:HAS_LEVEL]-(e:Engineer),
+      (sol:Solution { solutionId: "1"})
+RETURN e.engineerName as engineer, sol.solutionName as solution
+
+Commands
+---
+MATCH (n) RETURN n
+MATCH (n) DETACH DELETE n
+MATCH (s:Solution) DETACH DELETE s
+MATCH (n) where ID(n)=95 return n
+
+Query
+---
+MATCH (:Type { companyType: "A"})<-[:HAS_TYPE]-(c:Company)<-[:USED_BY]-(s:Server) 
+RETURN c.companyId as companyId, c.companyName as companyName, s.serverName as serverName
