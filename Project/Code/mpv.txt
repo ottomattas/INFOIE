@@ -1,5 +1,7 @@
 How-to Setup Initial Version on Neo4j 
 This guide is for Neo4j CLI setup
+For Neo4j Desktop, you need to follow the import guide here:
+https://neo4j.com/developer/desktop-csv-import/
 
 ------------
 CORE DOMAIN KNOWLEDGE
