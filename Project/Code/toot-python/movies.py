@@ -79,16 +79,16 @@ def serialize_cast(cast):
 @app.route("/graph")
 def get_graph():
     db = get_db()
-    results = db.read_transaction(lambda tx: list(tx.run("MATCH (m:Movie)<-[:ACTED_IN]-(a:Person) "
-                                                        "RETURN m.title as movie, collect(a.name) as cast "
+    results = db.read_transaction(lambda tx: list(tx.run("MATCH (s:Server)-->() "
+                                                        "RETURN s "
                                                         "LIMIT $limit", {
                                                             "limit": request.args.get("limit",
                                                                                       100)})))
-    # results = db.read_transaction(lambda tx: list(tx.run("MATCH (n) "
-    #                                                      "RETURN n "
-    #                                                      "LIMIT $limit", {
-    #                                                          "limit": request.args.get("limit",
-    #                                                                                    100)})))
+    # results = db.read_transaction(lambda tx: list(tx.run("MATCH (m:Movie)<-[:ACTED_IN]-(a:Person) "
+    #                                                     "RETURN m.title as movie, collect(a.name) as cast "
+    #                                                     "LIMIT $limit", {
+    #                                                         "limit": request.args.get("limit",
+    #                                                                                   100)})))
     nodes = []
     rels = []
     i = 0
