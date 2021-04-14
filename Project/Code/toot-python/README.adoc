@@ -61,7 +61,6 @@ Navigate to http://localhost:8080 and you should see toot.
 |PORT
 |8080
 
-#As this is a demo, we are not authenticating
 |NEO4J_URI
 |neo4j://localhost:7687
 
@@ -74,3 +73,5 @@ Navigate to http://localhost:8080 and you should see toot.
 |NEO4J_DATABASE
 |toot-mvp
 |===
+
+Note: As we are only demoing the app, we connect over the non-authenticated URI.
