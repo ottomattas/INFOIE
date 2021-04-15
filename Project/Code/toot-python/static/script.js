@@ -4,6 +4,7 @@
   $( document ).ready(function() {
     $('.chat').toggle();
     $('.chat-message-counter').toggle();
+    //$("#graph").css("visibility", "hidden");
   });
 
   $('#live-chat header').on('click', function () {
