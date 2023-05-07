@@ -95,7 +95,7 @@ pytz==2020.4
 pyvista==0.25.3
 pyvistaqt==0.2.0
 PyWavelets==1.1.1
-pywin32==228
+pywin32==301
 pywinpty==0.5.7
 PyYAML==5.3.1
 pyzmq==19.0.2
