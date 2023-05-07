@@ -7,7 +7,7 @@ attrs @ file:///tmp/build/80754af9/attrs_1604765588209/work
 backcall==0.2.0
 backports.functools-lru-cache==1.6.1
 beautifulsoup4==4.9.0
-bleach==3.2.1
+bleach==3.3.0
 blis @ file:///C:/ci/cython-blis_1613319550575/work
 bokeh==2.2.3
 brotlipy==0.7.0
