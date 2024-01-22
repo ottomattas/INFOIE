@@ -72,7 +72,7 @@ pandas==1.1.1
 pandocfilters==1.4.2
 parso @ file:///home/conda/feedstock_root/build_artifacts/parso_1595548966091/work
 pickleshare @ file:///C:/ci/pickleshare_1594374056827/work
-Pillow==10.0.1
+Pillow==10.2.0
 plac @ file:///C:/ci/plac_1594260069687/work
 ply==3.11
 plyfile==0.7.2
