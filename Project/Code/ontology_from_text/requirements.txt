@@ -123,7 +123,7 @@ threadpoolctl==2.1.0
 tifffile==2020.10.1
 torch==1.13.1
 torchvision==0.7.0
-tornado==6.3.3
+tornado==6.4.1
 tqdm==4.66.3
 traitlets @ file:///tmp/build/80754af9/traitlets_1600712679583/work
 trimesh==3.8.11
