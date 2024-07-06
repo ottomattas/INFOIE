@@ -12,7 +12,7 @@ blis @ file:///C:/ci/cython-blis_1613319550575/work
 bokeh==2.2.3
 brotlipy==0.7.0
 catalogue==1.0.0
-certifi==2023.7.22
+certifi==2024.7.4
 cffi @ file:///C:/ci/cffi_1613247308275/work
 chardet @ file:///C:/ci/chardet_1607706910910/work
 colorama==0.4.3
