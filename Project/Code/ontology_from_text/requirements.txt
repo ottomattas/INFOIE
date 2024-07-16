@@ -137,4 +137,4 @@ widgetsnbextension==3.5.1
 win-inet-pton @ file:///C:/ci/win_inet_pton_1605306165655/work
 wincertstore==0.2
 xlrd==2.0.1
-zipp==3.4.0
+zipp==3.19.1
